@@ -8,9 +8,9 @@
 
 
 *  Perform a word-frequency analysis and list the words with their frequency starting from the highest to the lowest. Exclude stop-words.
-*  
-*  
+
+  
 *  Perform sentiment analysis using the Alchemy API [extra credits]
-*  
-*  
+
+  
 *  *Feel free to use any techniques to improve efficiency of fetching the tweets.*
