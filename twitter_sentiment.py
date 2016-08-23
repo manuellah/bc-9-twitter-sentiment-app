@@ -25,5 +25,5 @@ class TwitterSentiment(object):
         '''
         pass
     
-user=  TwitterSentiment("Emmanuel")
-print (len(user.stop_words))
+#user=  TwitterSentiment("Emmanuel")
+#print (len(user.stop_words))
