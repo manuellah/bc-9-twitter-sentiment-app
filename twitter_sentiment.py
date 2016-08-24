@@ -72,12 +72,28 @@ class TwitterSentiment(object):
         This method takes the json file created in fetch data method and analyses the most frequent tweets words for that  user eliminating the stop words.
         Return a with dictictionary where word is a key and the frequency is the value) 
         '''
-        pass
+        tweet_dict = self.fetch_data()
+        freq_dict = dict()
+        for key in tweet_dict:
+            tweet_words = str(tweet_dict[key][0]).lower().split()
+            for word in tweet_words:
+                if word in TwitterSentiment.stop_words:
+                    continue
+                elif word not in list(freq_dict):
+                    freq_dict[word] = 1
+                else:
+                    freq_dict[word] += 1
+                    
+        freq_list = [(freq_dict[key], key) for key in freq_dict]
+        freq_list.sort()
+        print(' {} {}'.format("WORD".ljust(30), "FREQUENCY".ljust(30)))
+        for freq, word in freq_list[::-1]:
+            print(' {} {}'.format(word.ljust(30), str(freq).ljust(30)))
     
+        
 user=  TwitterSentiment("emmanuelmuthui")
-#
-user.fetch_data()
-user.display_tweets()
+#user.display_tweets()
+print(user.analyse_data())
 
 #user=  TwitterSentiment("Emmanuel")
 #print (len(user.stop_words))
