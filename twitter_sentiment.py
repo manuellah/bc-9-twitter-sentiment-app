@@ -40,8 +40,13 @@ class TwitterSentiment(object):
         '''
         my_dict = dict()
         alltweets = list()
-        new_tweets = TwitterSentiment.api.user_timeline(self.username, count=200)
+        new_tweets = TwitterSentiment.api.user_timeline(self.username, count=200, max_id= 0)
+        new_tweets = TwitterSentiment.api.user_timeline( self.username, count=200)
         alltweets.extend(new_tweets)
+        if not alltweets:
+            my_dict[0] = "No tweet so far","00/00/00"
+            return my_dict
+        
         oldest = alltweets[-1].id - 1
 	
         #keep grabbing tweets until there are no tweets left to grab
@@ -51,9 +56,15 @@ class TwitterSentiment(object):
             oldest = alltweets[-1].id - 1
         #save the tweet text in a dictionary mapped against the specific tweet id    
         for tweet in alltweets:
-            my_dict[tweet.id]=tweet.text
-
+            my_dict[tweet.id] = (tweet.text,tweet.created_at)
         return my_dict
+    
+    def display_tweets(self):
+        tweet_dict = self.fetch_data()
+        header='{} {} {}'.format("\nTWITTER ID".ljust(30) ,"DATE POSTED".ljust(30) ,"THE TWEET\n\n")
+        print(header)
+        for key in tweet_dict:
+            print('{} {} {}'.format(str(key).ljust(30) , str(tweet_dict[key][1]).ljust(30) , tweet_dict[key][0]))
         
     
     def analyse_data(self):
@@ -64,8 +75,9 @@ class TwitterSentiment(object):
         pass
     
 user=  TwitterSentiment("emmanuelmuthui")
-print(user.fetch_data())
-
+#
+user.fetch_data()
+user.display_tweets()
 
 #user=  TwitterSentiment("Emmanuel")
 #print (len(user.stop_words))
