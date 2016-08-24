@@ -1,0 +1,53 @@
+import tweepy
+import csv
+
+API_KEYS='EzfVwFMj3IzAUXMzvXLX9gHaF'
+API_SECRET= "Y1Gnr2oklcYGFbTryr3yDiiXgIWKAmPUVyouyr4NbRg8wmsjMT"
+ACCESS_TOKEN = "588855017-vZ5eQksRsgei2Jc2Wfev22DY2yWdk748ds7EiHFb"
+ACCESS_TOKEN_SECRET = "dJvDBNYHxhDO67I1B61bsd7P7S1j1PCkee4LI7fLjVW2b"
+
+auth = tweepy.OAuthHandler(API_KEYS, API_SECRET)
+#auth.secure = True
+auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+
+api = tweepy.API(auth)
+
+################ MY authedication up   ###############
+
+
+
+def get_all_tweets(screen_name):
+	alltweets = []	
+	new_tweets = api.user_timeline(screen_name = screen_name,count=200)
+	alltweets.extend(new_tweets)
+	oldest = alltweets[-1].id - 1
+	'''
+	#keep grabbing tweets until there are no tweets left to grab
+	while len(new_tweets) > 0:
+		print ("getting tweets before {}".format(oldest))
+		
+		#all subsiquent requests use the max_id param to prevent duplicates
+		new_tweets = api.user_timeline(screen_name = screen_name,count=200,max_id=oldest)
+		
+		#save most recent tweets
+		alltweets.extend(new_tweets)
+		
+		#update the id of the oldest tweet less one
+		oldest = alltweets[-1].id - 1
+		
+		print( "{0} tweets downloaded so far".format(str(len(alltweets))))
+
+	#transform the tweepy tweets into a 2D array that will populate the csv	
+	outtweets = [[tweet.id_str, tweet.created_at, tweet.text.encode("utf-8")] for tweet in alltweets]
+	
+	#write the csv	
+	with open('%s_tweets.csv' % screen_name, 'wb') as f:
+		writer = csv.writer(f)
+		writer.writerow(["id","created_at","text"])
+		writer.writerows(outtweets)
+	
+	'''
+
+get_all_tweets("emmanuelmuthui")
+
+    
