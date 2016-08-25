@@ -22,7 +22,6 @@ class TwitterSentiment(object):
         
         self.username = username
         self.no_tweets = number
-        #print(TwitterSentiment.api.me().name)
         
 
     def fetch_data(self ):
@@ -93,7 +92,7 @@ class TwitterSentiment(object):
             print(' {} {}'.format(word.ljust(30), str(freq).ljust(30)))
     
         
-user=  TwitterSentiment("njirap",30)
+user=  TwitterSentiment("amwaleh",30)
 user.fetch_data()
 user.display_tweets()
 print(user.analyse_data())
