@@ -63,7 +63,7 @@ class TwitterSentiment(object):
     
     def display_tweets(self):
         tweet_dict = self.fetch_data()
-        header='{} {} {}'.format("\nTWITTER ID".ljust(30) ,"DATE POSTED".ljust(30) ,"THE TWEET\n\n")
+        header='{} {} {} {}'.format("\nTWITTER ID".ljust(30) ,"DATE POSTED".ljust(30) ,"THE TWEET\n\n", "=="*70)
         print(header)
         for key in tweet_dict:
             print('{} {} {}'.format(str(key).ljust(30) , str(tweet_dict[key][1]).ljust(30) , tweet_dict[key][0]))
@@ -88,7 +88,7 @@ class TwitterSentiment(object):
                     
         freq_list = [(freq_dict[key], key) for key in freq_dict]
         freq_list.sort()
-        print(' {} {}'.format("WORD".ljust(30), "FREQUENCY".ljust(30)))
+        print('{} {} {} {} {} {}'.format("\n\n","COMMON TWEETED WORD".ljust(30), "THE FREQUENCY\n".ljust(30), '\n\n', "=="*70 , "\n\n"))
         for freq, word in freq_list[::-1]:
             print(' {} {}'.format(word.ljust(30), str(freq).ljust(30)))
     
