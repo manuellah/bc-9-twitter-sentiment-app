@@ -51,7 +51,7 @@ class TwitterSentiment(object):
                     alltweets.extend(new_tweets)
                     
                 else:
-                    new_tweets = TwitterSentiment.api.user_timeline(self.username, count=200, max_id=oldest)
+                    new_tweets = TwitterSentiment.api.user_timeline(self.username, count = 200, max_id = oldest)
                     alltweets.extend(new_tweets)
                     oldest = alltweets[-1].id - 1
                     self.no_tweets -= 200
@@ -93,7 +93,7 @@ class TwitterSentiment(object):
             print(' {} {}'.format(word.ljust(30), str(freq).ljust(30)))
     
         
-user=  TwitterSentiment("emmanuelmuthui",30)
+user=  TwitterSentiment("njirap",30)
 user.fetch_data()
 user.display_tweets()
 print(user.analyse_data())
