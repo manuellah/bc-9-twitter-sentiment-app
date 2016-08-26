@@ -30,6 +30,8 @@ class TwitterSentiment(object):
         '''
         my_dict = dict()
         alltweets = list()
+        bar = progressbar.ProgressBar(max_value = self.no_tweets)
+        print()
         if self.no_tweets <= 200:
             new_tweets = TwitterSentiment.api.user_timeline(self.username, count = self.no_tweets)
             alltweets.extend(new_tweets)
@@ -92,10 +94,10 @@ class TwitterSentiment(object):
             print(' {} {}'.format(word.ljust(30), str(freq).ljust(30)))
     
         
-user=  TwitterSentiment("amwaleh",30)
-user.fetch_data()
-user.display_tweets()
-print(user.analyse_data())
+#user=  TwitterSentiment("emmanuelmuthui",3)
+#user.fetch_data()
+#user.display_tweets()
+#print(user.analyse_data())
 
 #user=  TwitterSentiment("Emmanuel")
 #print (len(user.stop_words))
