@@ -89,8 +89,10 @@ class TwitterSentiment(object):
                     
         freq_list = [(freq_dict[key], key) for key in freq_dict]
         freq_list.sort()
+        freq_list = freq_list[::-1]
+        freq_list = freq_list[:10]
         print('{} {} {} {} {} {}'.format("\n\n","COMMON TWEETED WORD".ljust(30), "THE FREQUENCY\n".ljust(30), '\n\n', "=="*70 , "\n\n"))
-        for freq, word in freq_list[::-1]:
+        for freq, word in freq_list:
             print(' {} {}'.format(word.ljust(30), str(freq).ljust(30)))
     
         
