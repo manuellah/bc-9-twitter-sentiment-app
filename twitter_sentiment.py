@@ -30,47 +30,53 @@ class TwitterSentiment(object):
         '''
         This method fetchs data from twitter for a specific user and stores it in a json file
         '''
-        my_dict = dict()
-        alltweets = list()
-        bar = progressbar.ProgressBar(max_value = self.no_tweets)
-        print()
-        if self.no_tweets <= 200:
-            new_tweets = TwitterSentiment.api.user_timeline(self.username, count = self.no_tweets)
-            alltweets.extend(new_tweets)
-            if not alltweets:
-                my_dict[0] = "No tweet so far","00/00/00"
-                return my_dict
+        try:
+            my_dict = dict()
+            alltweets = list()
+            bar = progressbar.ProgressBar(max_value = self.no_tweets)
+            print()
+            if self.no_tweets <= 200:
+                new_tweets = TwitterSentiment.api.user_timeline(self.username, count = self.no_tweets)
+                alltweets.extend(new_tweets)
+                if not alltweets:
+                    my_dict[0] = "No tweet so far","00/00/00"
+                    return my_dict
 
-        else:    
-            new_tweets = TwitterSentiment.api.user_timeline(self.username, count=200)
-            alltweets.extend(new_tweets)
-            self.no_tweets -= 200
-            oldest = alltweets[-1].id - 1
+            else:    
+                new_tweets = TwitterSentiment.api.user_timeline(self.username, count=200)
+                alltweets.extend(new_tweets)
+                self.no_tweets -= 200
+                oldest = alltweets[-1].id - 1
 
-            #keep grabbing tweets until there are no tweets left to grab
-            while new_tweets:
-                if self.no_tweets <= 200:
-                    new_tweets = TwitterSentiment.api.user_timeline(self.username, count = self.no_tweets)
-                    alltweets.extend(new_tweets)
-                    
-                else:
-                    new_tweets = TwitterSentiment.api.user_timeline(self.username, count = 200, max_id = oldest)
-                    alltweets.extend(new_tweets)
-                    oldest = alltweets[-1].id - 1
-                    self.no_tweets -= 200
-                
-        #save the tweet text in a dictionary mapped against the specific tweet id    
-        for tweet in alltweets:
-                my_dict[tweet.id] = (tweet.text, tweet.created_at)
-        return my_dict
+                #keep grabbing tweets until there are no tweets left to grab
+                while new_tweets:
+                    if self.no_tweets <= 200:
+                        new_tweets = TwitterSentiment.api.user_timeline(self.username, count = self.no_tweets)
+                        alltweets.extend(new_tweets)
+
+                    else:
+                        new_tweets = TwitterSentiment.api.user_timeline(self.username, count = 200, max_id = oldest)
+                        alltweets.extend(new_tweets)
+                        oldest = alltweets[-1].id - 1
+                        self.no_tweets -= 200
+
+            #save the tweet text in a dictionary mapped against the specific tweet id    
+            for tweet in alltweets:
+                    my_dict[tweet.id] = (tweet.text, tweet.created_at)
+            return my_dict
+        except tweepy.error.TweepError as e:
+            print( Fore.RED + "No such twitter handle, Please do recheck the spelling and write it again")
     
     def display_tweets(self):
-        tweet_dict = self.fetch_data()
-        header='{} {} {} {}'.format(Fore.BLUE + "\nTWITTER ID".ljust(30) ,Fore.BLUE + "DATE POSTED".ljust(30) ,Fore.BLUE + "THE TWEET\n\n", "=="*70)
-        print(header)
-        for key in tweet_dict:
-            print('{} {} {}'.format(Fore.YELLOW + str(key).ljust(30) , Fore.GREEN + str(tweet_dict[key][1]).ljust(30) , Fore.RED + tweet_dict[key][0]))
-        
+        try:
+            tweet_dict = self.fetch_data()
+            header='{} {} {} {}'.format(Fore.BLUE + "\nTWITTER ID".ljust(30) ,Fore.BLUE + "DATE POSTED".ljust(30) ,Fore.BLUE + "THE TWEET\n\n", "=="*70)
+            print(header)
+            for key in tweet_dict:
+                print('{} {} {}'.format(Fore.YELLOW + str(key).ljust(30) , Fore.GREEN + str(tweet_dict[key][1]).ljust(30) , Fore.RED + tweet_dict[key][0]))
+                
+        except TypeError as e:
+            print( Fore.RED + "No tweets for this particular twitter handle")
     
     def analyse_data(self):
         '''
