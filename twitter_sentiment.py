@@ -1,6 +1,8 @@
 import tweepy, progressbar
 from config import *
+from colorama import *
 
+init()
 class TwitterSentiment(object):
     '''
     This class will fetch a particular tweeter user's frequent tweets, analyse the tweets and return the most used used words with their frequency
@@ -67,7 +69,7 @@ class TwitterSentiment(object):
         header='{} {} {} {}'.format("\nTWITTER ID".ljust(30) ,"DATE POSTED".ljust(30) ,"THE TWEET\n\n", "=="*70)
         print(header)
         for key in tweet_dict:
-            print('{} {} {}'.format(str(key).ljust(30) , str(tweet_dict[key][1]).ljust(30) , tweet_dict[key][0]))
+            print('{} {} {}'.format(Fore.WHITE + str(key).ljust(30) , Fore.GREEN + str(tweet_dict[key][1]).ljust(30) , Fore.RED + tweet_dict[key][0]))
         
     
     def analyse_data(self):

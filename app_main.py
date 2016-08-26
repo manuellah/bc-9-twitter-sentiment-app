@@ -19,12 +19,7 @@ from twitter_sentiment import *
 
 def launch(args):
     user=  TwitterSentiment(args['<twitter_handle>'],int(args['<number_of_tweets>']))
-    #user.fetch_data()
     
-    #print(user.analyse_data())
-
-    #user=  TwitterSentiment("Emmanuel")
-    #print (len(user.stop_words))
     if args['display_tweets']:
         user.display_tweets()
     elif args['analyse_tweets']:
