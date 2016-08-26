@@ -93,9 +93,9 @@ class TwitterSentiment(object):
         freq_list.sort()
         freq_list = freq_list[::-1]
         freq_list = freq_list[:10]
-        print('{} {} {} {} {} {}'.format("\n\n","COMMON TWEETED WORD".ljust(30), "THE FREQUENCY\n".ljust(30), '\n\n', "=="*70 , "\n\n"))
+        print('{} {} {} {} {} {}'.format(Fore.BLUE + "\n\n","COMMON TWEETED WORD".ljust(30), Fore.BLUE + "THE FREQUENCY\n".ljust(30), '\n\n', "=="*70 , "\n\n"))
         for freq, word in freq_list:
-            print(' {} {}'.format(word.ljust(30), str(freq).ljust(30)))
+            print(' {} {}'.format(Fore.YELLOW + word.ljust(30), Fore.GREEN + str(freq).ljust(30)))
     
         
 #user=  TwitterSentiment("emmanuelmuthui",3)
