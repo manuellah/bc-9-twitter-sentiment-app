@@ -65,13 +65,14 @@ class TwitterSentiment(object):
                     my_dict[tweet.id] = (tweet.text, tweet.created_at)
             return my_dict
         except tweepy.error.TweepError as e:
-            print( Fore.RED + "No such twitter handle, Please do recheck the spelling and write it again")
+            print( Fore.RED + "No such twitter handle or is a private account and you a not following him/her, Please do recheck the spelling and write it again")
     
     def display_tweets(self):
-        try:
-            tweet_dict = self.fetch_data()
-            header='{} {} {} {}'.format(Fore.BLUE + "\nTWITTER ID".ljust(30) ,Fore.BLUE + "DATE POSTED".ljust(30) ,Fore.BLUE + "THE TWEET\n\n", "=="*70)
-            print(header)
+        
+        tweet_dict = self.fetch_data()
+        header='{} {} {} {}'.format(Fore.BLUE + "\nTWITTER ID".ljust(30) ,Fore.BLUE + "DATE POSTED".ljust(30) ,Fore.BLUE + "THE TWEET\n\n", "=="*70)
+        print(header)
+        try:    
             for key in tweet_dict:
                 print('{} {} {}'.format(Fore.YELLOW + str(key).ljust(30) , Fore.GREEN + str(tweet_dict[key][1]).ljust(30) , Fore.RED + tweet_dict[key][0]))
                 
