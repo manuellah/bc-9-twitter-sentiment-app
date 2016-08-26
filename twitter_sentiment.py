@@ -66,10 +66,10 @@ class TwitterSentiment(object):
     
     def display_tweets(self):
         tweet_dict = self.fetch_data()
-        header='{} {} {} {}'.format("\nTWITTER ID".ljust(30) ,"DATE POSTED".ljust(30) ,"THE TWEET\n\n", "=="*70)
+        header='{} {} {} {}'.format(Fore.BLUE + "\nTWITTER ID".ljust(30) ,Fore.BLUE + "DATE POSTED".ljust(30) ,Fore.BLUE + "THE TWEET\n\n", "=="*70)
         print(header)
         for key in tweet_dict:
-            print('{} {} {}'.format(Fore.WHITE + str(key).ljust(30) , Fore.GREEN + str(tweet_dict[key][1]).ljust(30) , Fore.RED + tweet_dict[key][0]))
+            print('{} {} {}'.format(Fore.YELLOW + str(key).ljust(30) , Fore.GREEN + str(tweet_dict[key][1]).ljust(30) , Fore.RED + tweet_dict[key][0]))
         
     
     def analyse_data(self):
